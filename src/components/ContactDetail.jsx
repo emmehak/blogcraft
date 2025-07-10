@@ -21,12 +21,11 @@ const ContactDetail = () => {
   useEffect(() => {
     fetchContacts();
 
-    // Optional: Poll every 10 seconds
     const interval = setInterval(() => {
       fetchContacts();
     }, 10000);
 
-    return () => clearInterval(interval); // cleanup
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
 
   console.log("🌍 API_BASE_URL:", API_BASE_URL);
 
-  // Clear error after 5 seconds
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => setError(null), 5000);
@@ -64,7 +63,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    console.log("🟡 login called with", email, password);
     try {
       setError(null);
       setLoading(true);
@@ -97,7 +95,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signup = async (name, email, password) => {
-    console.log("🟡 signup called with", email, password);
     try {
       setError(null);
       setLoading(true);
@@ -111,7 +108,6 @@ export const AuthProvider = ({ children }) => {
       });
 
       const data = await response.json();
-      console.log("✅ Received response", data);
 
       if (response.ok) {
         localStorage.setItem("token", data.token);

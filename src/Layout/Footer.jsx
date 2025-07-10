@@ -17,188 +17,119 @@ const Footer = () => {
       { name: "Features", href: "#features" },
       { name: "Pricing", href: "#pricing" },
       { name: "Templates", href: "#templates" },
-      { name: "Integrations", href: "#integrations" },
-      { name: "API", href: "#api" },
     ],
     company: [
-      { name: "About Us", href: "#about" },
-      { name: "Careers", href: "#careers" },
-      { name: "Press", href: "#press" },
+      { name: "About", href: "#about" },
       { name: "Contact", href: "#contact" },
-      { name: "Partners", href: "#partners" },
+      { name: "Testimonials", href: "#testimonials" },
     ],
     resources: [
       { name: "Blog", href: "#blog" },
-      { name: "Documentation", href: "#docs" },
-      { name: "Help Center", href: "#help" },
-      { name: "Community", href: "#community" },
-      { name: "Webinars", href: "#webinars" },
+      { name: "Docs", href: "#docs" },
+      { name: "Article", href: "#article" },
     ],
     legal: [
-      { name: "Privacy Policy", href: "#privacy" },
-      { name: "Terms of Service", href: "#terms" },
-      { name: "Cookie Policy", href: "#cookies" },
-      { name: "GDPR", href: "#gdpr" },
-      { name: "Security", href: "#security" },
+      { name: "Privacy", href: "#privacy" },
+      { name: "Terms", href: "#terms" },
+      { name: "Cookies", href: "#cookies" },
     ],
   };
 
   const socialLinks = [
-    { icon: Twitter, href: "#twitter", label: "Twitter" },
-    { icon: Facebook, href: "#facebook", label: "Facebook" },
-    { icon: Instagram, href: "#instagram", label: "Instagram" },
-    { icon: Linkedin, href: "#linkedin", label: "LinkedIn" },
-    { icon: Github, href: "#github", label: "GitHub" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Github, href: "#", label: "GitHub" },
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
-      {/* Main footer content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-          {/* Company info */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center mb-6">
+    <footer className="bg-gray-900 text-white text-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand & Contact */}
+          <div className="md:col-span-1">
+            <div className="flex items-center mb-4">
               <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-lg mr-3">
-                <Edit3 className="w-6 h-6 text-white" />
+                <Edit3 className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold">BlogCraft</span>
+              <span className="text-lg font-bold">BlogCraft</span>
             </div>
-            <p className="text-gray-400 mb-6 leading-relaxed">
-              The ultimate blogging platform for creators who want to build,
-              grow, and monetize their content with powerful tools and beautiful
-              design.
+            <p className="text-gray-400 mb-4">
+              Build, grow, and monetize your content with ease.
             </p>
-
-            {/* Contact info */}
-            <div className="space-y-3">
-              <div className="flex items-center text-gray-400">
+            <div className="space-y-2 text-gray-400">
+              <div className="flex items-center">
                 <Mail className="w-4 h-4 mr-2" />
                 <span>support@blogcraft.com</span>
               </div>
-              <div className="flex items-center text-gray-400">
+              <div className="flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
-                <span>+1 (555) 123-4567</span>
+                <span>+92 312 716 7837</span>
               </div>
-              <div className="flex items-center text-gray-400">
+              <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2" />
-                <span>San Francisco, CA</span>
+                <span>Sialkot, Pakistan</span>
               </div>
             </div>
           </div>
 
-          {/* Product links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Product</h3>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          {/* Footer Links – hidden on mobile */}
+          <div className="hidden md:grid md:col-span-3 grid-cols-2 lg:grid-cols-4 gap-4">
+            {Object.entries(footerLinks).map(([title, links]) => (
+              <div key={title}>
+                <h3 className="font-semibold mb-3 capitalize">{title}</h3>
+                <ul className="space-y-2">
+                  {links.map((link, i) => (
+                    <li key={i}>
+                      <a
+                        href={link.href}
+                        className="text-gray-400 hover:text-white"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Newsletter signup */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Stay updated</h3>
-            <p className="text-gray-400 mb-4">
-              Get the latest news, updates, and tips delivered to your inbox.
-            </p>
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white"
-              />
-              <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-r-lg font-semibold transition-colors duration-200">
-                Subscribe
-              </button>
-            </div>
+        {/* Newsletter */}
+        <div className="mt-10 pt-8 border-t border-gray-800">
+          <h3 className="text-lg font-semibold mb-4">Stay Updated</h3>
+          <div className="flex flex-col sm:flex-row max-w-md">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-3 mb-3 sm:mb-0 sm:mr-2 bg-gray-800 border border-gray-700 rounded focus:outline-none text-white"
+            />
+            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded font-semibold">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom footer */}
+      {/* Bottom Bar */}
       <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            {/* Copyright */}
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} BlogCraft. All rights reserved.
-            </p>
-
-            {/* Social links */}
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-110"
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-400">
+            &copy; {new Date().getFullYear()} BlogCraft
+          </p>
+          <div className="flex space-x-4">
+            {socialLinks.map((social, i) => (
+              <a
+                key={i}
+                href={social.href}
+                aria-label={social.label}
+                className="text-gray-400 hover:text-white hover:scale-110 transition"
+              >
+                <social.icon className="w-5 h-5" />
+              </a>
+            ))}
           </div>
         </div>
       </div>

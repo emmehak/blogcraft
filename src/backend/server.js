@@ -82,8 +82,7 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// ======================= DATABASE VERIFICATION =======================
-
+//DB verification on startup
 // Function to verify tables exist and show their structure
 const verifyTables = async () => {
   try {
@@ -118,27 +117,17 @@ const verifyTables = async () => {
       ORDER BY ordinal_position
     `);
 
-    console.log("📞 Contacts table structure:", contactsStructure.rows);
-
     // Count existing records
     const userCount = await pool.query("SELECT COUNT(*) FROM users");
     const contactCount = await pool.query("SELECT COUNT(*) FROM contacts");
-
-    console.log("📊 Current record counts:");
-    console.log("   Users:", userCount.rows[0].count);
-    console.log("   Contacts:", contactCount.rows[0].count);
   } catch (err) {
-    console.error("❌ Error verifying database tables:", err);
-    console.error("❌ This might indicate connection issues or missing tables");
+    console.error("Error verifying database tables:", err);
   }
 };
 
-// Verify tables on startup
 verifyTables();
 
-// ======================= AUTH ROUTES =======================
-
-// Input validation middleware for auth
+//Authentication middleware to validate user input
 const validateAuthInput = (req, res, next) => {
   const { email, password, name } = req.body;
 
@@ -170,14 +159,12 @@ app.post(
     const { email, password, name } = req.body;
 
     try {
-      console.log("🔄 Attempting to create user:", { email, name });
-
       const exists = await pool.query("SELECT id FROM users WHERE email = $1", [
         email,
       ]);
 
       if (exists.rows.length > 0) {
-        console.log("❌ User already exists:", email);
+        console.log("User already exists:", email);
         return res
           .status(409)
           .json({ message: "User already exists with this email" });
@@ -190,8 +177,6 @@ app.post(
       );
 
       const user = result.rows[0];
-      console.log("✅ User created successfully:", user);
-
       const token = jwt.sign(
         { userId: user.id, email: user.email },
         process.env.JWT_SECRET,
@@ -206,7 +191,7 @@ app.post(
         user,
       });
     } catch (err) {
-      console.error("❌ Signup error:", err);
+      console.error("Signup error:", err);
       res
         .status(500)
         .json({ message: "Internal server error", error: err.message });
@@ -223,14 +208,12 @@ app.post(
     const { email, password } = req.body;
 
     try {
-      console.log("🔄 Attempting login for:", email);
-
       const result = await pool.query("SELECT * FROM users WHERE email = $1", [
         email,
       ]);
 
       if (result.rows.length === 0) {
-        console.log("❌ User not found:", email);
+        console.log("User not found:", email);
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
@@ -238,7 +221,6 @@ app.post(
       const isValid = await bcrypt.compare(password, user.password);
 
       if (!isValid) {
-        console.log("❌ Invalid password for:", email);
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
@@ -250,7 +232,7 @@ app.post(
         }
       );
 
-      console.log("✅ Login successful for:", email);
+      console.log("Login successful for:", email);
 
       res.json({
         message: "Login successful",
@@ -258,7 +240,7 @@ app.post(
         user: { id: user.id, email: user.email, name: user.name },
       });
     } catch (err) {
-      console.error("❌ Login error:", err);
+      console.error("Login error:", err);
       res
         .status(500)
         .json({ message: "Internal server error", error: err.message });
@@ -278,7 +260,7 @@ app.get("/api/auth/verify", authenticateToken, async (req, res) => {
 
     res.json({ user: result.rows[0] });
   } catch (err) {
-    console.error("❌ Verify error:", err);
+    console.error("Verify error:", err);
     res
       .status(500)
       .json({ message: "Internal server error", error: err.message });
@@ -290,7 +272,7 @@ app.post("/api/auth/logout", authenticateToken, (req, res) => {
   res.json({ message: "Logout successful" });
 });
 
-// ======================= CONTACT ROUTES =======================
+// Contact
 
 const validateContact = [
   body("name")
@@ -324,13 +306,13 @@ app.post("/api/contact", contactLimiter, validateContact, async (req, res) => {
       [name, email, message]
     );
 
-    console.log("✅ Contact saved successfully:", result.rows[0]);
+    console.log("Contact saved successfully:", result.rows[0]);
 
     res
       .status(201)
       .json({ success: true, message: "Submitted", data: result.rows[0] });
   } catch (err) {
-    console.error("❌ Contact form error:", err);
+    console.error("Contact form error:", err);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -347,11 +329,11 @@ app.get("/api/contact", async (req, res) => {
       `SELECT id, name, email, message, created_at FROM contacts ORDER BY created_at DESC LIMIT 50`
     );
 
-    console.log("✅ Contacts fetched:", result.rows.length);
+    console.log("Contacts fetched:", result.rows.length);
 
     res.json({ success: true, data: result.rows });
   } catch (err) {
-    console.error("❌ Fetching contacts error:", err);
+    console.error("Fetching contacts error:", err);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -359,8 +341,6 @@ app.get("/api/contact", async (req, res) => {
     });
   }
 });
-
-// ======================= OTHER ROUTES =======================
 
 // Health check with database connection test
 app.get("/api/health", async (req, res) => {
@@ -373,7 +353,7 @@ app.get("/api/health", async (req, res) => {
       dbTime: result.rows[0].now,
     });
   } catch (err) {
-    console.error("❌ Health check failed:", err);
+    console.error("Health check failed:", err);
     res.status(500).json({
       status: "ERROR",
       timestamp: new Date().toISOString(),
@@ -416,7 +396,7 @@ app.post("/api/test-insert", async (req, res) => {
       message: "This is a test message from the server",
     };
 
-    console.log("🧪 Testing insert with:", testContact);
+    console.log("Testing insert with:", testContact);
 
     const result = await pool.query(
       `INSERT INTO contacts (name, email, message, created_at) 
@@ -425,7 +405,7 @@ app.post("/api/test-insert", async (req, res) => {
       [testContact.name, testContact.email, testContact.message]
     );
 
-    console.log("✅ Test insert successful:", result.rows[0]);
+    console.log("Test insert successful:", result.rows[0]);
 
     res.json({
       success: true,
@@ -433,7 +413,7 @@ app.post("/api/test-insert", async (req, res) => {
       data: result.rows[0],
     });
   } catch (err) {
-    console.error("❌ Test insert failed:", err);
+    console.error("Test insert failed:", err);
     res.status(500).json({
       success: false,
       message: "Test insert failed",
@@ -450,7 +430,7 @@ app.get("*", (req, res) => {
 
 // Global error handler
 app.use((err, req, res, next) => {
-  console.error("❌ Unhandled Error:", err.stack);
+  console.error("Unhandled Error:", err.stack);
   res.status(500).json({
     success: false,
     message: "Something went wrong!",
@@ -472,6 +452,6 @@ process.on("SIGINT", () => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || "development"}`);
+  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
 });

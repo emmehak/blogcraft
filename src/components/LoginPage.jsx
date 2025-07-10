@@ -39,7 +39,6 @@ const LoginPage = () => {
     }
   }, [isAuthenticated, navigate, location]);
 
-  // Clear messages when switching between login/signup
   useEffect(() => {
     setFormErrors({});
     setSuccessMessage("");
@@ -143,7 +142,6 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
-      {/* Subtle background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(139,92,246,0.1),transparent)] bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.1),transparent)]"></div>
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-6">

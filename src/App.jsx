@@ -30,16 +30,25 @@ const ScrollToPathSection = ({ children }) => {
 const App = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // 👇 Logout on tab close
   useEffect(() => {
-    const handleLogoutOnClose = () => {
-      localStorage.removeItem("token");
+    const handleBeforeUnload = (e) => {
+      const navType = performance.getEntriesByType("navigation")[0]?.type;
+
+      if (navType !== "reload") {
+        const token = localStorage.getItem("token");
+        if (token) {
+          navigator.sendBeacon(
+            "/api/auth/logout",
+            new Blob([JSON.stringify({})], { type: "application/json" })
+          );
+          localStorage.removeItem("token");
+        }
+      }
     };
 
-    window.addEventListener("beforeunload", handleLogoutOnClose);
+    window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
-      window.removeEventListener("beforeunload", handleLogoutOnClose);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 

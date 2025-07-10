@@ -26,7 +26,7 @@ const Pricing = () => {
       name: "Professional",
       description: "For growing bloggers",
       monthlyPrice: 19,
-      yearlyPrice: 15,
+      yearlyPrice: 183,
       features: [
         "5 Blogs",
         "Unlimited posts",
@@ -46,7 +46,7 @@ const Pricing = () => {
       name: "Enterprise",
       description: "For teams and agencies",
       monthlyPrice: 49,
-      yearlyPrice: 39,
+      yearlyPrice: 471,
       features: [
         "Unlimited blogs",
         "Unlimited posts",

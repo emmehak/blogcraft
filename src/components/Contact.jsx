@@ -124,7 +124,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900">Phone</h4>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <p className="text-gray-600">+92 312 7167837</p>
                 </div>
               </div>
 
@@ -156,9 +156,9 @@ const Contact = () => {
                     Office
                   </h4>
                   <p className="text-gray-600">
-                    123 Blog Street
+                    Sialkot, Punjab
                     <br />
-                    San Francisco, CA 94105
+                    Pakistan
                   </p>
                 </div>
               </div>
